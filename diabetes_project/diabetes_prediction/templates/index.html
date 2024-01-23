@@ -1,0 +1,122 @@
+<!-- diabetes_prediction/templates/diabetes_prediction/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin-top: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .healthy {
+            color: #4caf50;
+        }
+
+        .diabetic {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diabetes Prediction</h1>
+
+    <form method="post" action="{% url 'index' %}">
+        {% csrf_token %}
+        <label for="pregnancies">Pregnancies:</label>
+        <input type="number" name="pregnancies" required>
+
+        <label for="glucose">Glucose:</label>
+        <input type="number" name="glucose" required>
+
+        <label for="blood_pressure">Blood Pressure:</label>
+        <input type="number" name="blood_pressure" required>
+
+        <label for="skin_thickness">Skin Thickness:</label>
+        <input type="number" name="skin_thickness" required>
+
+        <label for="insulin">Insulin:</label>
+        <input type="number" name="insulin" required>
+
+        <label for="bmi">BMI:</label>
+        <input type="number" name="bmi" required step="0.1">
+
+        <label for="dpf">Diabetes Pedigree Function:</label>
+        <input type="number" name="dpf" required step="0.01">
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" required>
+
+        <!-- Add more input fields as needed -->
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if patient.outcome is not None %}
+        {% if patient.outcome == 0 %}
+            <p class="healthy">You are healthy!</p>
+        {% else %}
+            <p class="diabetic">You might have diabetes.</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
